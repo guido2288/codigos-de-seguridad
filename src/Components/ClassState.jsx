@@ -1,6 +1,8 @@
 import React from 'react'
 import Loading from './Loading';
 
+const SECURITY_CODE = "paradigma";
+
 class ClassState extends React.Component {
 
   constructor(props){
@@ -8,6 +10,7 @@ class ClassState extends React.Component {
     this.state = {
       error:false,
       loading:false,
+      value:"",
     }
   }
 
@@ -15,8 +18,13 @@ class ClassState extends React.Component {
     
     if(this.state.loading) {
       setTimeout(() => {
+
       
-        this.setState({loading:false})
+        if(SECURITY_CODE === this.state.value){
+          this.setState({loading:false , error:false});
+        } else{
+          this.setState({loading:false , error: true});
+        }
       
       }, 2000)
     }
@@ -29,9 +37,17 @@ class ClassState extends React.Component {
       <div className='bg-white p-8 w-[400px]'>
           <h2 className='block text-gray-700 text-lg font-bold mb-2'>Eliminar {this.props.name}</h2>
           <p>Por favor, escribe el codigo de seguridad.</p>
-          <input type="text" placeholder='Código de seguridad' className='relative shadow appearance-none border rounded w-full my-4 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"'/>
+          <input 
+            type="text" 
+            placeholder='Código de seguridad' 
+            className={`relative shadow appearance-none border rounded w-full my-4 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${(this.state.error && !this.state.loading) ? "border-red-500" : ""}`}
+            value={this.state.value}
+            onChange={(event) => {
+              this.setState({value: event.target.value })
+            }}
+            />
           {
-            this.state.error && (
+            (this.state.error && !this.state.loading) && (
             <p className="text-red-500 text-xs italic absolute">Error: el codigo es incorrecto</p>
             )
           }
