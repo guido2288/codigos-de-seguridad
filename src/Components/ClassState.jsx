@@ -1,7 +1,7 @@
 import React from 'react'
 import Loading from './Loading';
 
-const SECURITY_CODE = "paradigma";
+const SECURITY_CODE = "ClassState";
 
 class ClassState extends React.Component {
 
@@ -36,7 +36,7 @@ class ClassState extends React.Component {
     return (
       <div className='bg-white p-8 w-[400px]'>
           <h2 className='block text-gray-700 text-lg font-bold mb-2'>Eliminar {this.props.name}</h2>
-          <p>Por favor, escribe el codigo de seguridad.</p>
+          <p>Para eliminar escribe "ClassState".</p>
           <input 
             type="text" 
             placeholder='Código de seguridad' 
